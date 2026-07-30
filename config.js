@@ -20,23 +20,15 @@ window.SIM_CONFIG = {
 
 overlayPositions: {
 
-    amount:         [58, 116, 250, 34],
-
-    pipeline:       [58, 156, 250, 34],
-
-    stage:          [58, 196, 250, 34],
-
-    products:       [58, 503, 250, 34],
-
-    priority:       [58, 610, 250, 34],
-
-    forecast:       [58, 699, 250, 34],
-
-    notes:          [58, 897, 250, 86],
-
-    representative: [58, 1037, 250, 34],
-
-    submit:         [1655, 12, 120, 40]
+   amount:         [58,116,250,34],
+pipeline:       [58,156,250,34],
+stage:          [58,196,250,34],
+products:       [58,503,250,34],
+priority:       [58,610,250,34],
+forecast:       [58,699,250,34],
+notes:          [58,897,250,86],
+representative: [58,1037,250,34],
+submit:         [1655,12,120,40]
 
 }
 };
