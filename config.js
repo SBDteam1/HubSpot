@@ -15,19 +15,28 @@ window.SIM_CONFIG = {
     representative: ['Allen Dy', 'Daniel Panes', 'Erica Cobian', 'Frank Winchester', 'Hezen Estrera', 'Laurice San Juan', 'Pooja Salgaonkar', 'Safwat Wahib', 'Sally Morgan'],
     priority: ['High', 'Medium', 'Low']
   },
-  // Positions are percentages of the supplied Deal screenshot canvas.
-  overlayPositions: {
-   amount:         [1.8, 10.6, 12.2, 1.8],
-  pipeline:       [1.8, 14.4, 12.2, 1.8],
-  stage:          [1.8, 18.1, 12.2, 1.8],
+ // Pixel coordinates based on a 1920 × 1080 design canvas.
+// Format: [left, top, width, height]
 
-  products:       [1.8, 46.5, 12.2, 1.8],
-  priority:       [1.8, 56.5, 12.2, 1.8],
-  forecast:       [1.8, 64.6, 12.2, 1.8],
+overlayPositions: {
 
-  notes:          [1.8, 82.8, 12.2, 4.8],
-  representative: [1.8, 96.2, 12.2, 1.8],
+    amount:         [58, 116, 250, 34],
 
-  submit:         [11.2, 0.4, 3.0, 2.2]
-  }
+    pipeline:       [58, 156, 250, 34],
+
+    stage:          [58, 196, 250, 34],
+
+    products:       [58, 503, 250, 34],
+
+    priority:       [58, 610, 250, 34],
+
+    forecast:       [58, 699, 250, 34],
+
+    notes:          [58, 897, 250, 86],
+
+    representative: [58, 1037, 250, 34],
+
+    submit:         [1655, 12, 120, 40]
+
+}
 };
