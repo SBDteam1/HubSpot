@@ -6,7 +6,26 @@
   const opts = (items, first='Select an option') => `<option value="">${first}</option>${items.map(x=>`<option value="${esc(x)}">${esc(x)}</option>`).join('')}`;
   function welcome(){app.innerHTML=document.querySelector('#welcome-template').innerHTML;const button=document.querySelector('#start');const valid=()=>button.disabled=!(document.querySelector('#participant-name').value.trim()&&document.querySelector('#ready').checked);document.querySelector('#participant-name').oninput=valid;document.querySelector('#ready').onchange=valid;valid();button.onclick=()=>{state.name=document.querySelector('#participant-name').value.trim();scenario()};}
   function scenario(){app.innerHTML=`<section class="screen"><article class="card scenario"><p class="eyebrow">SCENARIO</p><h2>Ready to update the Deal?</h2><p>You have just completed a successful discovery/demo meeting with <strong>Erica Cobian</strong> from <strong>Erica's Tortillas - Test</strong>.</p><p>During the meeting, Erica decided to move forward with the <strong>Seller Direct Program</strong> using the <strong>Growth Subscription</strong> with <strong>Annual Billing</strong>.</p><p>Following the meeting, you have already prepared and sent the customer's formal quotation for review. Your responsibility is now to update the HubSpot Deal so it accurately reflects the current sales status before continuing the sales process.</p><dl class="summary-grid"><div><dt>Company</dt><dd>Erica's Tortillas - Test</dd></div><div><dt>Primary Contact</dt><dd>Erica Cobian</dd></div><div><dt>Program</dt><dd>Seller Direct</dd></div><div><dt>Subscription</dt><dd>Growth Subscription</dd></div><div><dt>Billing</dt><dd>Annual</dd></div><div><dt>Annual Subscription</dt><dd>$9,108.60</dd></div><div><dt>One-Time Onboarding Fee</dt><dd>$1,000.00</dd></div><div><dt>Total Deal Amount</dt><dd>$10,108.60</dd></div></dl><button id="open" class="primary">Open HubSpot Deal</button></article></section>`;document.querySelector('#open').onclick=simulator;}
-  function position(el, key){const [x,y,w,h]=C.overlayPositions[key];Object.assign(el.style,{left:x+'%',top:y+'%',width:w+'%',height:h+'%'});}
+ function position(el, key){
+
+    const DESIGN_WIDTH = 1920;
+    const DESIGN_HEIGHT = 1080;
+
+    const canvas = document.getElementById("canvas");
+
+    const scaleX = canvas.clientWidth / DESIGN_WIDTH;
+    const scaleY = canvas.clientHeight / DESIGN_HEIGHT;
+
+    const [x, y, w, h] = C.overlayPositions[key];
+
+    Object.assign(el.style,{
+        left: (x * scaleX) + "px",
+        top: (y * scaleY) + "px",
+        width: (w * scaleX) + "px",
+        height: (h * scaleY) + "px"
+    });
+
+}
   function field(key, control){const e=document.createElement('label');e.className='field';e.dataset.key=key;position(e,key);e.innerHTML=control+'<small></small>';return e;}
   function simulator(){state.startedAt=Date.now();state.values={pipeline:C.currentValues.pipeline,stage:C.currentValues.stage,forecast:C.currentValues.forecast,representative:'',amount:'',products:'',priority:'',notes:''};app.innerHTML=`<section class="simulator"><header class="sim-top"><strong>Post-Demo HubSpot Simulator</strong><span>Erica's Tortillas - Test</span><span id="timer" class="timer">10:00</span></header><div class="hubspot-canvas" id="canvas"><div class="no-shot" id="no-shot"><div><strong>HubSpot screenshot awaiting asset</strong><small>Add <code>hubspot-screenshot.png</code> to display the supplied Deal interface.</small></div></div></div></section>`;const canvas=document.querySelector('#canvas');const controls={pipeline:`<select>${opts(C.options.pipeline)}</select>`,stage:`<select>${opts(C.options.stage)}</select>`,forecast:`<select>${opts(C.options.forecast)}</select>`,representative:`<select>${opts(C.options.representative)}</select>`,amount:'<input inputmode="decimal" aria-label="Amount">',products:'<input aria-label="Seller Category / Main Products">',priority:`<select>${opts(C.options.priority)}</select>`,notes:'<textarea aria-label="Deal Notes"></textarea>'};Object.entries(controls).forEach(([key,html])=>{const e=field(key,html), c=e.querySelector('input,select,textarea');c.value=state.values[key];c.addEventListener('change',()=>save(key,c.value,e));c.addEventListener('blur',()=>save(key,c.value,e));canvas.append(e)});const submit=document.createElement('button');submit.className='submit-overlay';submit.textContent='Submit';position(submit,'submit');submit.onclick=submitDeal;canvas.append(submit);const img=new Image();img.onload=()=>document.querySelector('#no-shot').remove();img.src='hubspot-screenshot.png';tick();state.interval=setInterval(tick,1000);}
   function save(key,value,el){state.values[key]=value.trim();el.classList.remove('invalid');el.classList.add('saving');el.querySelector('small').textContent='Saving...';setTimeout(()=>{el.querySelector('small').textContent='✓ Changes Saved';setTimeout(()=>el.classList.remove('saving'),900)},380)}
