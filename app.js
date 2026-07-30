@@ -27,10 +27,18 @@ products:'<input aria-label="Seller Category / Main Products">',
 priority:`<select>${opts(C.options.priority)}</select>`,
 notes:'<textarea aria-label="Deal Notes"></textarea>'
 };
-                       Object.entries(controls).forEach(([key,html])=>{const e=field(key,html), c=e.querySelector('input,select,textarea');
-c.value = state.values[key];
-       
-       c.addEventListener('change',()=>save(key,c.value,e));c.addEventListener('blur',()=>save(key,c.value,e));canvas.append(e)});const submit=document.createElement('button');submit.className='submit-overlay';submit.textContent='Submit';position(submit,'submit');submit.onclick=submitDeal;canvas.append(submit);const img=new Image();img.onload=()=>document.querySelector('#no-shot').remove();img.src='hubspot-screenshot.png';tick();state.interval=setInterval(tick,1000);}
+  Object.entries(controls).forEach(([key,html])=>{
+    const e = field(key,html),
+          c = e.querySelector('input,select,textarea');
+
+    c.value = state.values[key];
+
+    c.addEventListener('change',()=>save(key,c.value,e));
+    c.addEventListener('blur',()=>save(key,c.value,e));
+
+    canvas.append(e);
+});
+const submit=document.createElement('button');submit.className='submit-overlay';submit.textContent='Submit';position(submit,'submit');submit.onclick=submitDeal;canvas.append(submit);const img=new Image();img.onload=()=>document.querySelector('#no-shot').remove();img.src='hubspot-screenshot.png';tick();state.interval=setInterval(tick,1000);}
 
 function save(key,value,el){
     state.values[key]=value.trim();
