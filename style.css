@@ -10,4 +10,18 @@
     appearance:none;
     -webkit-appearance:none;
     -moz-appearance:none;
-}                                                                                                                                                                                                                              }
+} 
+.field{
+    position:absolute;
+}
+
+.field::after{
+    content:"▼";
+    position:absolute;
+    right:8px;
+    top:50%;
+    transform:translateY(-50%);
+    color:#33475b;
+    font-size:14px;
+    pointer-events:none;
+}                                                                                                                                                                                                                                                                                                                                                                                                                                                          }
