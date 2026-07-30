@@ -7,24 +7,18 @@
   function welcome(){app.innerHTML=document.querySelector('#welcome-template').innerHTML;const button=document.querySelector('#start');const valid=()=>button.disabled=!(document.querySelector('#participant-name').value.trim()&&document.querySelector('#ready').checked);document.querySelector('#participant-name').oninput=valid;document.querySelector('#ready').onchange=valid;valid();button.onclick=()=>{state.name=document.querySelector('#participant-name').value.trim();scenario()};}
   function scenario(){app.innerHTML=`<section class="screen"><article class="card scenario"><p class="eyebrow">SCENARIO</p><h2>Ready to update the Deal?</h2><p>You have just completed a successful discovery/demo meeting with <strong>Erica Cobian</strong> from <strong>Erica's Tortillas - Test</strong>.</p><p>During the meeting, Erica decided to move forward with the <strong>Seller Direct Program</strong> using the <strong>Growth Subscription</strong> with <strong>Annual Billing</strong>.</p><p>Following the meeting, you have already prepared and sent the customer's formal quotation for review. Your responsibility is now to update the HubSpot Deal so it accurately reflects the current sales status before continuing the sales process.</p><dl class="summary-grid"><div><dt>Company</dt><dd>Erica's Tortillas - Test</dd></div><div><dt>Primary Contact</dt><dd>Erica Cobian</dd></div><div><dt>Program</dt><dd>Seller Direct</dd></div><div><dt>Subscription</dt><dd>Growth Subscription</dd></div><div><dt>Billing</dt><dd>Annual</dd></div><div><dt>Annual Subscription</dt><dd>$9,108.60</dd></div><div><dt>One-Time Onboarding Fee</dt><dd>$1,000.00</dd></div><div><dt>Total Deal Amount</dt><dd>$10,108.60</dd></div></dl><button id="open" class="primary">Open HubSpot Deal</button></article></section>`;document.querySelector('#open').onclick=simulator;}
 overlayPositions: {
+  amount:         [2.1, 10.9, 12.2, 1.8],
+  pipeline:       [2.1, 14.7, 12.2, 1.8],
+  stage:          [2.1, 18.5, 12.2, 1.8],
 
-  amount:         [2.6, 11.2, 11.5, 1.8],
+  products:       [2.1, 46.9, 12.2, 1.8],
+  priority:       [2.1, 56.9, 12.2, 1.8],
+  forecast:       [2.1, 65.0, 12.2, 1.8],
 
-  pipeline:       [2.6, 15.0, 11.5, 1.8],
+  notes:          [2.1, 83.2, 12.2, 4.8],
+  representative: [2.1, 96.5, 12.2, 1.8],
 
-  stage:          [2.6, 18.9, 11.5, 1.8],
-
-  products:       [2.6, 47.8, 11.5, 1.8],
-
-  priority:       [2.6, 57.9, 11.5, 1.8],
-
-  forecast:       [2.6, 66.2, 11.5, 1.8],
-
-  notes:          [2.6, 84.6, 11.5, 5.0],
-
-  representative: [2.6, 96.6, 11.5, 1.8],
-
-  submit:         [88.5, 1.2, 6.0, 3.6]
+  submit:         [11.2, 0.4, 3.0, 2.2]
 
 }
   function field(key, control){const e=document.createElement('label');e.className='field';e.dataset.key=key;position(e,key);e.innerHTML=control+'<small></small>';return e;}
