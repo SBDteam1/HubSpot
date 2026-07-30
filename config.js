@@ -17,8 +17,17 @@ window.SIM_CONFIG = {
   },
   // Positions are percentages of the supplied Deal screenshot canvas.
   overlayPositions: {
-    amount: [0.7, 12.0, 13.6, 2.3], pipeline: [2.6, 13.5, 13.2, 2.3], stage: [3.8, 15.6, 12.7, 2.3],
-    products: [0.7, 52.8, 13.7, 2.3], priority: [0.7, 57.3, 13.7, 2.3], forecast: [0.7, 65.8, 13.7, 2.3],
-    notes: [0.7, 83.0, 13.7, 5.2], representative: [0.7, 95.8, 13.7, 2.3], submit: [12.4, 1.1, 3.0, 2.5]
+     amount:         [0.6, 12.2, 13.5, 2.1],
+  pipeline:       [2.7, 15.2, 12.8, 2.1],
+  stage:          [2.7, 18.9, 12.8, 2.1],
+
+  products:       [0.6, 52.0, 13.5, 2.1],
+  priority:       [0.6, 57.1, 13.5, 2.1],
+  forecast:       [0.6, 66.2, 13.5, 2.1],
+
+  notes:          [0.6, 84.5, 13.5, 4.8],
+  representative: [0.6, 96.2, 13.5, 2.1],
+
+  submit:         [11.8, 0.3, 3.1, 2.3]
   }
 };
