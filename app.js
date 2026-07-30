@@ -27,19 +27,22 @@ products:'<input aria-label="Seller Category / Main Products">',
 priority:`<select>${opts(C.options.priority)}</select>`,
 notes:'<textarea aria-label="Deal Notes"></textarea>'
 };
-                       Object.entries(controls).forEach(([key,html])=>{const e=field(key,html), c=e.querySelector('input,select,textarea');if (     ['pipeline','stage','forecast','representative','priority'].includes(key) ) {     c.selectedIndex = 0; } else {     c.value = state.values[key]; }c.addEventListener('change',()=>save(key,c.value,e));c.addEventListener('blur',()=>save(key,c.value,e));canvas.append(e)});const submit=document.createElement('button');submit.className='submit-overlay';submit.textContent='Submit';position(submit,'submit');submit.onclick=submitDeal;canvas.append(submit);const img=new Image();img.onload=()=>document.querySelector('#no-shot').remove();img.src='hubspot-screenshot.png';tick();state.interval=setInterval(tick,1000);}
-  if(c.tagName==="SELECT"){
-    c.classList.add('placeholder');
+                       Object.entries(controls).forEach(([key,html])=>{const e=field(key,html), c=e.querySelector('input,select,textarea');
+c.value = state.values[key];
+       
+       }c.addEventListener('change',()=>save(key,c.value,e));c.addEventListener('blur',()=>save(key,c.value,e));canvas.append(e)});const submit=document.createElement('button');submit.className='submit-overlay';submit.textContent='Submit';position(submit,'submit');submit.onclick=submitDeal;canvas.append(submit);const img=new Image();img.onload=()=>document.querySelector('#no-shot').remove();img.src='hubspot-screenshot.png';tick();state.interval=setInterval(tick,1000);}
 
-    c.addEventListener('change',()=>{
-        if(c.selectedIndex===0){
-            c.classList.add('placeholder');
-        }else{
-            c.classList.remove('placeholder');
-        }
-    });
+function save(key,value,el){
+    state.values[key]=value.trim();
+    el.classList.remove('invalid');
+    el.classList.add('saving');
+    el.querySelector('small').textContent='Saving...';
+
+    setTimeout(()=>{
+        el.querySelector('small').textContent='✓ Changes Saved';
+        setTimeout(()=>el.classList.remove('saving'),900);
+    },380);
 }
-  function save(key,value,el){     state.values[key]=value.trim();      const control = el.querySelector('select');     if(control){         if(control.selectedIndex===0){             control.classList.add('placeholder');         }else{             control.classList.remove('placeholder');         }     }      el.classList.remove('invalid');     el.classList.add('saving');     el.querySelector('small').textContent='Saving...';      setTimeout(()=>{         el.querySelector('small').textContent='✓ Changes Saved';         setTimeout(()=>el.classList.remove('saving'),900);     },380); }state.values[key]=value.trim();el.classList.remove('invalid');el.classList.add('saving');el.querySelector('small').textContent='Saving...';setTimeout(()=>{el.querySelector('small').textContent='✓ Changes Saved';setTimeout(()=>el.classList.remove('saving'),900)},380)}
   function tick(){const sec=Math.max(0,C.timerSeconds-Math.floor((Date.now()-state.startedAt)/1000));state.elapsed=Math.floor((Date.now()-state.startedAt)/1000);const el=document.querySelector('#timer');if(el)el.textContent=`${String(Math.floor(sec/60)).padStart(2,'0')}:${String(sec%60).padStart(2,'0')}`;}
   function check(){const v=state.values,a=C.correctAnswers;return {pipeline:[v.pipeline===a.pipeline,`Expected ${a.pipeline}`],stage:[v.stage===a.stage,`Expected ${a.stage}`],forecast:[v.forecast===a.forecast,`Expected ${a.forecast}`],representative:[!!v.representative,'Select the Seller Sales Representative'],amount:[v.amount===a.amount,`Expected ${a.amount}. Remember to include the onboarding fee.`],products:[!!v.products,'Enter a Seller Category / Main Products value'],priority:[!!v.priority,'Select a priority'],notes:[a.notesTerms.every(x=>v.notes.toLowerCase().includes(x.toLowerCase())),`Must include “${a.notesTerms[0]}” and “${a.notesTerms[1]}”`]};}
   function submitDeal(){const checks=check(),required=['representative','amount','products','priority','notes'],missing=required.filter(k=>!state.values[k]);if(missing.length){missing.forEach(k=>document.querySelector(`[data-key="${k}"]`)?.classList.add('invalid'));const old=document.querySelector('.banner');if(old)old.remove();const b=document.createElement('div');b.className='banner';b.textContent='Please complete all required properties before submitting this Deal.';document.body.append(b);setTimeout(()=>b.remove(),4000);return;}clearInterval(state.interval);results(checks);}
